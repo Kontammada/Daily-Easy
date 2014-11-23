@@ -1,4 +1,8 @@
 import Tkinter as tk
+import os
+import datetime
+
+
 class SampleApp(tk.Tk):
     def __init__(self, *args, **kwargs):
 
@@ -24,9 +28,7 @@ class StartPage(tk.Frame):
         photo = tk.PhotoImage(file = "frame.gif")
         label = tk.Label(self, image = photo)
         label.image = photo #save reference of photo
-
-        button1 = tk.Button(self, image = photo,command=lambda: controller.show_frame(MainPage),
-                            )
+        button1 = tk.Button(self, image = photo,command=lambda: controller.show_frame(MainPage))
         button1.pack()
 
 
@@ -47,13 +49,28 @@ class MainPage(tk.Frame):
 
 class New(tk.Frame):
     def __init__(self, parent, controller):
-        
+
         tk.Frame.__init__(self, parent) 
         label = tk.Label(self, text="New Ja!!!")
         label.pack(side="top", fill="x", pady=10)
         main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
         main_button.pack()
 
+        self.text_title = tk.Text(self)
+        self.text_title.config(width=35, heigh=1)
+        self.text_title.pack()
+        self.text = tk.Text(self)
+        self.text.config(width=35, heigh=15)
+        self.text.pack()
+        self.button = tk.Button(self, text="Save", command=self.on_button)
+        self.button.pack()
+    def on_button(self):
+        date = str(datetime.datetime.now().date())
+        title = self.text_title.get('1.0', 'end-1c')
+        name = date+' '+str(title)
+        data = self.text.get('1.0', 'end-1c')
+        new_file = open(name+'.txt', "w+")
+        new_file.write(data)
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()

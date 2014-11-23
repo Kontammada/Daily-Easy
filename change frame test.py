@@ -3,7 +3,9 @@ import os
 import datetime
 
 
+
 class SampleApp(tk.Tk):
+
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, **kwargs)###
@@ -21,7 +23,10 @@ class SampleApp(tk.Tk):
         frame = self.frames[c]
         frame.tkraise()
 
+
+
 class StartPage(tk.Frame):
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         ###just a label
@@ -35,38 +40,45 @@ class StartPage(tk.Frame):
         if 'Note-Data' not in check:
             os.mkdir("Note-Data")
 
-class MainPage(tk.Frame):
-    def __init__(self, parent, controller):
 
+
+class MainPage(tk.Frame):
+
+    def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent) 
         label = tk.Label(self, text="This is page 1")
         label.pack(side="top", fill="x", pady=10)
         main_button = tk.Button(self, text="Back to Intro", command=lambda: controller.show_frame(StartPage))
         button2 = tk.Button(self, text="New", command=lambda: controller.show_frame(New))
         button3 = tk.Button(self, text="Go to the start page", command=lambda: controller.show_frame(StartPage))
-
         main_button.pack()
         button2.pack()
         button3.pack()
 
 
-class New(tk.Frame):
-    def __init__(self, parent, controller):
 
+
+class New(tk.Frame):
+
+    def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent) 
         label = tk.Label(self, text="New Ja!!!")
-        label.pack(side="top", fill="x", pady=10)
+        label.place(x=130, y=30)
         main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
-        main_button.pack()
-
+        main_button.place(x=95, y=550)
+        self.title = tk.Label(self, text='Title')
+        self.title.place(x=10, y=60)
+        self.description = tk.Label(self, text='Description')
+        self.description.place(x=10, y=110)
         self.text_title = tk.Text(self)
         self.text_title.config(width=35, heigh=1)
-        self.text_title.pack()
+        self.text_title.place(x=10, y=80)
         self.text = tk.Text(self)
         self.text.config(width=35, heigh=15)
-        self.text.pack()
+        self.text.place(x=10, y=130)
         self.button = tk.Button(self, text="Save", command=self.on_button)
-        self.button.pack()
+        self.button.place(x=260, y=395)
+
     def on_button(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
@@ -74,6 +86,11 @@ class New(tk.Frame):
         data = self.text.get('1.0', 'end-1c')
         new_file = open("Note-Data/"+name+".txt", "w+")
         new_file.write(data)
+        self.text.delete('1.0', 'end')
+        self.text_title.delete('1.0', 'end')
+        self.success = tk.Label(self, text='...File saved...')
+        self.success.place(x=117, y=400)
+
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()

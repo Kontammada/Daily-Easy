@@ -67,9 +67,9 @@ class New(tk.Frame):
     def on_button(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
-        name = date+' '+str(title)
+        name = date+" _ "+str(title)
         data = self.text.get('1.0', 'end-1c')
-        new_file = open(name+'.txt', "w+")
+        new_file = open("Note-Data/"+name+".txt", "w+")
         new_file.write(data)
 if __name__ == "__main__":
     app = SampleApp()

@@ -13,7 +13,7 @@ class SampleApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)###
         self.frames = {}###
         
-        for F in (MainPage, New, StartPage):
+        for F in (MainPage, Work, House,  New, StartPage):
             frame = F(container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -51,11 +51,14 @@ class MainPage(tk.Frame):
         main_button = tk.Button(self, text="Back to Intro", command=lambda: controller.show_frame(StartPage))
         button2 = tk.Button(self, text="New", command=lambda: controller.show_frame(New))
         button3 = tk.Button(self, text="Go to the start page", command=lambda: controller.show_frame(StartPage))
+        button4 = tk.Button(self, text="Work *-*)//", command=lambda: controller.show_frame(Work))
+        button5 = tk.Button(self, text="House _(:3 JL)_", command=lambda: controller.show_frame(House))
+
         main_button.pack()
         button2.pack()
         button3.pack()
-
-
+        button4.pack()
+        button5.pack()
 
 
 class New(tk.Frame):
@@ -91,6 +94,22 @@ class New(tk.Frame):
         self.success = tk.Label(self, text='...File saved...')
         self.success.place(x=117, y=400)
 
+class Work(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="Workkkkkk!!!")
+        label.pack(side="top", fill="x", pady=10)
+        main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
+        main_button.place(x=95, y=550)
+
+class House(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        label = tk.Label(self, text="House =3=")
+        label.pack(side="top", fill="x", pady=10)
+        main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
+        main_button.place(x=95, y=550)
+        
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()

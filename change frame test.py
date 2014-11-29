@@ -61,38 +61,65 @@ class MainPage(tk.Frame):
         button5.pack()
 
 
+
 class New(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent) 
+        tk.Frame.__init__(self, parent)
+
+        #Label
         label = tk.Label(self, text="New Ja!!!")
         label.place(x=130, y=30)
-        main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
-        main_button.place(x=95, y=550)
         self.title = tk.Label(self, text='Title')
         self.title.place(x=10, y=60)
         self.description = tk.Label(self, text='Description')
         self.description.place(x=10, y=110)
+    
+        #Textbox
         self.text_title = tk.Text(self)
         self.text_title.config(width=35, heigh=1)
         self.text_title.place(x=10, y=80)
         self.text = tk.Text(self)
         self.text.config(width=35, heigh=15)
         self.text.place(x=10, y=130)
-        self.button = tk.Button(self, text="Save", command=self.on_button)
-        self.button.place(x=260, y=395)
+    
+        #Button
+        main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
+        main_button.place(x=95, y=550)
+        self.button = tk.Button(self, text="Work Save")
+        self.button.place(x=230, y=395)
+        self.button2 = tk.Button(self, text="House Save")
+        self.button2.place(x=150, y=395)
 
-    def on_button(self):
-        date = str(datetime.datetime.now().date())
-        title = self.text_title.get('1.0', 'end-1c')
-        name = date+" _ "+str(title)
-        data = self.text.get('1.0', 'end-1c')
-        new_file = open("Note-Data/"+name+".txt", "w+")
-        new_file.write(data)
-        self.text.delete('1.0', 'end')
-        self.text_title.delete('1.0', 'end')
-        self.success = tk.Label(self, text='...File saved...')
-        self.success.place(x=117, y=400)
+        #input Date
+        self.input_date = tk.Text(self)
+        
+
+
+    
+class App(tk.Frame):
+    def __init__(self, master):
+        tk.Frame.__init__(self, master)
+        self.dict = {'Asia': ['Japan', 'China', 'Malasia'],
+                     'Europe': ['Germany', 'France', 'Switzerland']}
+        self.variable_a = tk.StringVar(self)
+        self.variable_b = tk.StringVar(self)
+        self.variable_a.trace('w', self.updateoptions)
+        self.optionmenu_a = tk.OptionMenu(self, self.variable_a, *self.dict.keys())
+        self.optionmenu_b = tk.OptionMenu(self, self.variable_b, '')
+        self.variable_a.set('Asia')
+        self.optionmenu_a.pack()
+        self.optionmenu_b.pack()
+        self.pack()
+    def updateoptions(self, *args):
+        countries = self.dict[self.variable_a.get()]
+        self.variable_b.set(countries[0])
+        menu = self.optionmenu_b['menu']
+        menu.delete(0, 'end')
+        for country in countries:
+            menu.add_command(label=country, command=lambda country=country: self.variable_b.set(country))
+   
+
 
 class Work(tk.Frame):
     def __init__(self, parent, controller):
@@ -102,6 +129,8 @@ class Work(tk.Frame):
         main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
         main_button.place(x=95, y=550)
 
+
+
 class House(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -109,7 +138,7 @@ class House(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
         main_button = tk.Button(self, text="Go to the main page", command=lambda: controller.show_frame(MainPage))
         main_button.place(x=95, y=550)
-        
+
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()

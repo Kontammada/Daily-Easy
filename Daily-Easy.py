@@ -28,7 +28,7 @@ class StartPage(tk.Frame):
         photo = tk.PhotoImage(file = "frame.gif")
         label = tk.Label(self, image = photo)
         label.image = photo #save reference of photo
-        button1 = tk.Button(self, image = photo,command=lambda: controller.show_frame(MainPage))
+        button1 = tk.Button(self, image = photo,command=lambda: controller.show_frame(MainPage), relief='flat')
         button1.pack()
         work_dir = os.getcwd()
         check = os.listdir(work_dir)
@@ -66,9 +66,8 @@ class MainPage(tk.Frame):
         self.newbutton.place(x=5, y=500)
         self.aboutbutton = tk.Button(self, text="About", command=lambda: controller.show_frame(About))
         self.aboutbutton.place(x=5, y=535)
-        self.photo = tk.PhotoImage(file = "deco.gif")
-        self.sillybutton = tk.Button(image = self.photo)
-        self.sillybutton.place(x=155, y=455) 
+        
+
 
 class New(tk.Frame):
     def __init__(self, parent, controller):
@@ -86,38 +85,39 @@ class New(tk.Frame):
         self.text_title.place(x=10, y=80)
         self.text = tk.Text(self)
         self.text.config(width=35, heigh=15)
+        self.text.insert('1.0', 'my status here.\n')
         self.text.place(x=10, y=130)
         self.button = tk.Button(self, text="Save", command=self.on_button)
         self.button.place(x=260, y=395)
-        self.list_m = ['January', 'Fabruary', 'March', 'April', 'May', 'June',
-                     'July', 'August', 'September', 'October', 'November', 'December']
-        self.dict = {'January':range(1,32), 'Fabruary':range(1,30), 'March':range(1,32),
-                     'April':range(1,31), 'May':range(1,32), 'June':range(1,31),
-                     'July':range(1,32), 'August':range(1,32), 'September':range(1,31),
-                     'October':range(1,32), 'November':range(1,31), 'December':range(1,32)}
+        self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
+        self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
+                     '4':range(1,31), '5':range(1,32), '6':range(1,31),
+                     '7':range(1,32), '8':range(1,32), '9':range(1,31),
+                     '10':range(1,32), '11':range(1,31), '12':range(1,32)}
         self.year = range(2014, 2031)
         self.variable_a = tk.StringVar(self)
         self.variable_b = tk.StringVar(self)
         self.variable_c = tk.StringVar(self)
         self.variable_a.trace('w', self.update_b)
         self.optionmenu_a = tk.OptionMenu(self, self.variable_a, *self.list_m)
-        self.optionmenu_b = tk.OptionMenu(self, self.variable_b, *self.dict['January'])
+        self.optionmenu_b = tk.OptionMenu(self, self.variable_b, *self.dict['1'])
         self.optionmenu_c = tk.OptionMenu(self, self.variable_c, *self.year)
-        self.variable_a.set('January')
+        self.variable_a.set('1')
         self.variable_b.set(1)
         self.variable_c.set(2014)
         self.optionmenu_a.place(x=10, y=390)
-        self.optionmenu_b.place(x=110, y=390)
-        self.optionmenu_c.place(x=165, y=390)
+        self.optionmenu_b.place(x=70, y=390)
+        self.optionmenu_c.place(x=130, y=390)
         self.pack()
     def on_button(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
-        name = date+" _ "+str(title)
+        alert = str(self.variable_c.get())+'-'+str(self.variable_a.get()).zfill(2)+'-'+str(self.variable_b.get()).zfill(2)
+        name = date+' __ '+alert+" _ "+str(title)
         data = self.text.get('1.0', 'end-1c')
         new_file = open("Note-Data/"+name+".txt", "w+")
         alert = str(self.variable_c.get())+'-'+str(self.variable_a.get())+'-'+str(self.variable_b.get())
-        new_file.write("%s\n\n%s" %(alert,data))
+        new_file.write(data)
         self.text.delete('1.0', 'end')
         self.text_title.delete('1.0', 'end')
         self.success = tk.Label(self, text='...File saved...')
@@ -127,7 +127,7 @@ class New(tk.Frame):
         self.optionmenu_b.pack_forget()
         self.optionmenu_b = tk.OptionMenu(self, self.variable_b, *value_a)
         self.variable_b.set(1)
-        self.optionmenu_b.place(x=110, y=390)    
+        self.optionmenu_b.place(x=70, y=390)    
 
 
 
@@ -199,4 +199,5 @@ class House(tk.Frame):
 
 if __name__ == "__main__":
     app = SampleApp()
+    app.resizable(width='FALSE', height='FALSE')
     app.mainloop()

@@ -202,6 +202,8 @@ class Edit(object):
         self.optionmenu_d.place(x=70, y=390)
         self.optionmenu_y.place(x=130, y=390)
     def save_note(self):
+        root = tk.Tk()
+        root.withdraw()
         if tkMessageBox.askyesno(title='Really?', detail='Do you want to save?'):
             #delete old file
             os.remove(self.now+'/Note-Data/'+self.file)
@@ -219,6 +221,8 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
+        else:
+            return
             
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]

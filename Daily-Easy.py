@@ -49,8 +49,15 @@ class Main(object):
         now = os.getcwd()
         onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
         onlyfiles.sort()
+        date = str(datetime.datetime.now().date())
+        sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
-            listbox.insert('end',j[:-27])
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                listbox.insert('end',j[:-27])
+        listbox.insert('end','===============================================')
+        for k in onlyfiles:
+            if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
+                listbox.insert('end',k[:-27])
     def call_work(self):
         self.root.destroy()
         Work()
@@ -67,7 +74,6 @@ class Main(object):
         self.root.destroy()
         About()
     def OnDouble(self, event):
-        
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])

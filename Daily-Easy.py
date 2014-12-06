@@ -49,8 +49,15 @@ class Main(object):
         now = os.getcwd()
         onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
         onlyfiles.sort()
+        date = str(datetime.datetime.now().date())
+        sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
-            listbox.insert('end',j[:-27])
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                listbox.insert('end',j[:-27])
+        listbox.insert('end','===============================================')
+        for k in onlyfiles:
+            if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
+                listbox.insert('end',k[:-27])
     def call_work(self):
         self.root.destroy()
         Work()
@@ -67,7 +74,6 @@ class Main(object):
         self.root.destroy()
         About()
     def OnDouble(self, event):
-        
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
@@ -75,7 +81,6 @@ class Main(object):
         Edit(value)
         self.root.destroy()
 class New(object):
-
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
@@ -181,6 +186,9 @@ class Edit(object):
         #save button
         self.button = tk.Button(self.root, text="Save", command=self.save_note)
         self.button.place(x=260, y=395)
+        #delete button
+        self.delete_button = tk.Button(self.root, text='delete',command=self.delete_note)
+        self.delete_button.place(x=260, y=410)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
@@ -221,11 +229,21 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
+<<<<<<< HEAD
             self.root.destroy()
             Main()
     def call_main(self):
         self.root.destroy()
         Main()
+=======
+    def delete_note(self):
+        root = tk.Tk()
+        root.withdraw()
+        if tkMessageBox.askyesno(title='Really?', detail='Do you want to remove?'):
+            #delete file
+            os.remove(self.now+'/Note-Data/'+self.file)
+            call_nain()
+>>>>>>> origin/master
             
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]

@@ -221,8 +221,6 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
-        else:
-            return
             
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]
@@ -289,6 +287,8 @@ class Work(object):
         selection=widget.curselection()
         value = widget.get(selection[0])
         print "selection:", selection, ": '%s'" % value
+        Edit(value)
+        self.root.destroy()
 
 class House(object):
     def __init__(self):
@@ -344,7 +344,8 @@ class House(object):
         selection=widget.curselection()
         value = widget.get(selection[0])
         print "selection:", selection, ": '%s'" % value
-
+        Edit(value)
+        self.root.destroy()
 class About(object):
     def __init__(self):
         self.root = tk.Tk()

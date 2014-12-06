@@ -67,6 +67,13 @@ class MainPage(tk.Frame):
         self.aboutbutton = tk.Button(self, text="About", command=lambda: controller.show_frame(About))
         self.aboutbutton.place(x=5, y=535)
         
+        canvas = tk.Canvas(width=80, height=80)
+        vbar=tk.Scrollbar(self,orient='vertical')
+        vbar.pack(side='right',fill='y')
+        vbar.config(command=canvas.yview)
+        canvas.config(yscrollcommand=vbar.set)
+        canvas.place(self, x=10, y=60)
+
 
 
 class New(tk.Frame):
@@ -87,7 +94,7 @@ class New(tk.Frame):
         self.text.config(width=35, heigh=15)
         self.text.insert('1.0', 'my status here.\n')
         self.text.place(x=10, y=130)
-        self.button = tk.Button(self, text="Save", command=self.on_button)
+        self.button = tk.Button(self, text="Save", command=self.on_button, relief='flat')
         self.button.place(x=260, y=395)
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),

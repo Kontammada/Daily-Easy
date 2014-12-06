@@ -81,7 +81,6 @@ class Main(object):
         Edit(value)
         self.root.destroy()
 class New(object):
-
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
@@ -187,6 +186,9 @@ class Edit(object):
         #save button
         self.button = tk.Button(self.root, text="Save", command=self.save_note)
         self.button.place(x=260, y=395)
+        #delete button
+        self.delete_button = tk.Button(self.root, text='delete',command=self.delete_note)
+        self.delete_button.place(x=260, y=410)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
@@ -227,6 +229,13 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
+    def delete_note(self):
+        root = tk.Tk()
+        root.withdraw()
+        if tkMessageBox.askyesno(title='Really?', detail='Do you want to remove?'):
+            #delete file
+            os.remove(self.now+'/Note-Data/'+self.file)
+            call_nain()
             
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]

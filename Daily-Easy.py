@@ -89,8 +89,7 @@ class Main(object):
             return
         Edit(value)
         self.root.destroy()
-    def customFoont(self):
-        self.title_f = tkFont.Font(family="Helvetica", size=25)
+    
 class New(object):
     def __init__(self):
         self.root = tk.Tk()
@@ -101,26 +100,26 @@ class New(object):
         label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
         main_button = tk.Button(self.root,command = self.call_main, text="Go to the main page",relief='groove')
-        main_button.place(x=95, y=550)
-        self.title = tk.Label(self.root, text='Title')
-        self.title.place(x=10, y=60)
-        self.description = tk.Label(self.root, text='Description')
-        self.description.place(x=10, y=110)
+        main_button.place(x=93, y=550)
+        self.title = tk.Label(self.root, text='Title', font=tkFont.Font(size=12))
+        self.title.place(x=10, y=50)
+        self.description = tk.Label(self.root, text='Description', font=tkFont.Font(size=12))
+        self.description.place(x=10, y=100)
         self.text_title = tk.Text(self.root)
-        self.text_title.config(width=35, heigh=1)
-        self.text_title.place(x=10, y=80)
+        self.text_title.config(width=34, heigh=1)
+        self.text_title.place(x=10, y=73)
         self.text = tk.Text(self.root)
-        self.text.config(width=35, heigh=15)
-        self.text.place(x=10, y=130)
+        self.text.config(width=34, heigh=17)
+        self.text.place(x=10, y=122)
         #work or house radiobutton
         self.tag_var = tk.StringVar()
         work = tk.Radiobutton(self.root, text='Work', variable=self.tag_var, value='works')
         house = tk.Radiobutton(self.root, text='House', variable=self.tag_var, value='house')
-        work.place(x=200,y=420)
-        house.place(x=200,y=440)
+        work.place(x=160,y=455)
+        house.place(x=160,y=473)
         #save button
-        self.button = tk.Button(self.root, text="Save", command=self.save_note)
-        self.button.place(x=260, y=395)
+        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), command=self.save_note)
+        self.button.place(x=235, y=460)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
@@ -135,14 +134,12 @@ class New(object):
         self.optionmenu_a = tk.OptionMenu(self.root, self.variable_a, *self.list_m)
         self.optionmenu_b = tk.OptionMenu(self.root, self.variable_b, *self.dict['1'])
         self.optionmenu_c = tk.OptionMenu(self.root, self.variable_c, *self.year)
-        self.variable_a.set('1')
+        self.variable_a.set(1)
         self.variable_b.set(1)
         self.variable_c.set(2014)
-        self.optionmenu_a.place(x=10, y=390)
-        self.optionmenu_b.place(x=70, y=390)
-        self.optionmenu_c.place(x=130, y=390)
-        self.labelbg.pack_propagate(0)
-        self.labelbg.pack()
+        self.optionmenu_a.place(x=100, y=410)
+        self.optionmenu_b.place(x=160, y=410)
+        self.optionmenu_c.place(x=220, y=410)
     def save_note(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
@@ -157,6 +154,7 @@ class New(object):
         self.text_title.delete('1.0', 'end')
         self.success = tk.Label(self.root, text='...File saved...')
         self.success.place(x=117, y=440)
+        self.call_main()
     def update_b(self, *args):
         value_a = self.dict[self.variable_a.get()]
         self.optionmenu_b.pack_forget()
@@ -166,7 +164,6 @@ class New(object):
     def call_main(self):
         self.root.destroy()
         Main()
-
 class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
@@ -182,30 +179,30 @@ class Edit(object):
         label.pack(side="top", fill="x", pady=0)
         main_button = tk.Button(self.root, text="Go to the main page", command=self.call_main)
         main_button.place(x=95, y=550)
-        self.title = tk.Label(self.root, text='Title')
-        self.title.place(x=10, y=60)
-        self.description = tk.Label(self.root, text='Description')
-        self.description.place(x=10, y=110)
+        self.title = tk.Label(self.root, text='Title', font=tkFont.Font(size=12))
+        self.title.place(x=10, y=50)
+        self.description = tk.Label(self.root, text='Description', font=tkFont.Font(size=12))
+        self.description.place(x=10, y=100)
         self.text_title = tk.Text(self.root)
-        self.text_title.config(width=35, heigh=1)
-        self.text_title.place(x=10, y=80)
+        self.text_title.config(width=34, heigh=1)
+        self.text_title.place(x=10, y=73)
         self.text_title.insert('1.0', self.file[13:-27])
         self.text = tk.Text(self.root)
-        self.text.config(width=35, heigh=15)
-        self.text.place(x=10, y=130)
+        self.text.config(width=34, heigh=17)
+        self.text.place(x=10, y=122)
         self.text.insert('1.0', detail)
         #work or house radiobutton
-        self.tag_var = tk.StringVar(self.root)
+        self.tag_var = tk.StringVar()
         work = tk.Radiobutton(self.root, text='Work', variable=self.tag_var, value='works')
         house = tk.Radiobutton(self.root, text='House', variable=self.tag_var, value='house')
-        work.place(x=200,y=420)
-        house.place(x=200,y=440)
+        work.place(x=160,y=455)
+        house.place(x=160,y=473)
         #save button
-        self.button = tk.Button(self.root, text="Save", command=self.save_note)
-        self.button.place(x=260, y=395)
+        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), command=self.save_note)
+        self.button.place(x=235, y=460)
         #delete button
         self.delete_button = tk.Button(self.root, text='delete',command=self.delete_note)
-        self.delete_button.place(x=260, y=410)
+        self.delete_button.place(x=10, y=412)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
@@ -223,9 +220,9 @@ class Edit(object):
         self.variable_m.set(int(self.file[5:7]))
         self.variable_d.set(int(self.file[8:10]))
         self.variable_y.set(int(self.file[:4]))
-        self.optionmenu_m.place(x=10, y=390)
-        self.optionmenu_d.place(x=70, y=390)
-        self.optionmenu_y.place(x=130, y=390)
+        self.optionmenu_m.place(x=100, y=410)
+        self.optionmenu_d.place(x=160, y=410)
+        self.optionmenu_y.place(x=220, y=410)
     def save_note(self):
         root = tk.Tk()
         root.withdraw()
@@ -246,15 +243,14 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
-            self.root.destroy()
-            Main()
+            self.call_main()
     def call_main(self):
         self.root.destroy()
         Main()
     def delete_note(self):
         root = tk.Tk()
         root.withdraw()
-        if tkMessageBox.askyesno(title='Really?', detail='Do you want to remove?'):
+        if tkMessageBox.askyesno(title='Really?', detail='Do you want to delete?'):
             #delete file
             os.remove(self.now+'/Note-Data/'+self.file)
             self.call_main()
@@ -264,6 +260,9 @@ class Edit(object):
         self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)
         self.variable_d.set(1)
         self.optionmenu_d.place(x=70, y=390)
+    def call_main(self):
+        self.root.destroy()
+        Main()        
 
         
 class Work(object):

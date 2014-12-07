@@ -191,7 +191,7 @@ class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
-        self.bgimg = tk.PhotoImage(file="Image/testbg3.gif")
+        self.bgimg = tk.PhotoImage(file="Image/Editbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         self.root.resizable(width='false', height='false')
         self.now = os.getcwd()

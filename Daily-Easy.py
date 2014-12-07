@@ -21,7 +21,6 @@ class Start(object):
     def removethis(self):
         self.root.destroy()
         Main()
-        
 class Main(object):
     def __init__(self):
         self.root = tk.Tk()
@@ -58,14 +57,22 @@ class Main(object):
         date = str(datetime.datetime.now().date())
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         cnt = 0
+        #create list today
         for j in onlyfiles:
             if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) == sum_date:
                 listbox.insert('end',j[:-27])
                 cnt += 1
+        #insert tip
+        tip = open(now+'/tip.txt', 'r')
+        tip_line = random.choice(tip.read().splitlines())
+        listbox.insert('end', ['*'+tip_line, '**'+tip_line[:35]+'...'][len(tip_line)>35])
+        listbox.itemconfig(cnt, {'bg':'#FFFF00'})
+        #create list next time
         for j in onlyfiles:
             if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) > sum_date:
                 listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
+        #create old list
         for k in onlyfiles:
             if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
                 listbox.insert('end',k[:-27])
@@ -165,7 +172,7 @@ class New(object):
         self.optionmenu_b.pack_forget()
         self.optionmenu_b = tk.OptionMenu(self.root, self.variable_b, *value_a)
         self.variable_b.set(1)
-        self.optionmenu_b.place(x=70, y=390)
+        self.optionmenu_b.place(x=160, y=410)
     def call_main(self):
         self.root.destroy()
         Main()
@@ -268,7 +275,7 @@ class Edit(object):
         self.optionmenu_d.pack_forget()
         self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)
         self.variable_d.set(1)
-        self.optionmenu_d.place(x=70, y=390)
+        self.optionmenu_d.place(x=160, y=410)
     def call_main(self):
         self.root.destroy()
         Main()        

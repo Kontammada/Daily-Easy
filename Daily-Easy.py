@@ -5,6 +5,7 @@ from os.path import isfile, join
 import datetime
 import tkMessageBox
 import tkFont
+import random
 
 class Start(object):
     def __init__(self):
@@ -30,15 +31,13 @@ class Main(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
-        self.edge = tk.Label(self.root, text="========================================")
-        self.edge.place(y = 400)
         self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), state='disabled',relief='groove')
         self.workbutton.place(x=57, y=430)
         self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), command=self.call_work,relief='groove')
         self.workbutton.place(x=117, y=430)
         self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), command=self.call_house,relief='groove')
         self.housebutton.place(x=182, y=430)
-        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
         self.introbutton.place(x=10, y=565)
@@ -58,8 +57,13 @@ class Main(object):
         onlyfiles.sort()
         date = str(datetime.datetime.now().date())
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
+        cnt = 0
         for j in onlyfiles:
-            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) == sum_date:
+                listbox.insert('end',j[:-27])
+                cnt += 1
+        for j in onlyfiles:
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) > sum_date:
                 listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
         for k in onlyfiles:
@@ -89,8 +93,6 @@ class Main(object):
             return
         self.root.destroy()
         Edit(value)
-
-    
 class New(object):
     def __init__(self):
         self.root = tk.Tk()
@@ -281,8 +283,6 @@ class Work(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
-        self.edge = tk.Label(self.root, text="========================================")
-        self.edge.place(y = 400)
         self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), command=self.call_main,relief='groove')
         self.workbutton.place(x=57, y=430)
         self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), state='disabled',relief='groove')
@@ -353,8 +353,6 @@ class House(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
-        self.edge = tk.Label(self.root, text="========================================")
-        self.edge.place(y = 400)
         self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), command=self.call_main,relief='groove')
         self.workbutton.place(x=57, y=430)
         self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), command=self.call_work,relief='groove')

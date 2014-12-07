@@ -140,6 +140,8 @@ class New(object):
         self.optionmenu_a.place(x=100, y=410)
         self.optionmenu_b.place(x=160, y=410)
         self.optionmenu_c.place(x=220, y=410)
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def save_note(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')

@@ -229,23 +229,24 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
+            self.root.destroy()
+            Main()
+    def call_main(self):
+        self.root.destroy()
+        Main()
     def delete_note(self):
         root = tk.Tk()
         root.withdraw()
         if tkMessageBox.askyesno(title='Really?', detail='Do you want to remove?'):
             #delete file
             os.remove(self.now+'/Note-Data/'+self.file)
-            call_nain()
-            
+            self.call_main()
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]
         self.optionmenu_d.pack_forget()
         self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)
         self.variable_d.set(1)
         self.optionmenu_d.place(x=70, y=390)
-    def call_main(self):
-        self.root.destroy()
-        Main()
 
         
 class Work(object):

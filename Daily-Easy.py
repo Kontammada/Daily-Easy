@@ -229,13 +229,6 @@ class Edit(object):
             self.text_title.delete('1.0', 'end')
             self.success = tk.Label(self.root, text='...File saved...')
             self.success.place(x=117, y=440)
-<<<<<<< HEAD
-            self.root.destroy()
-            Main()
-    def call_main(self):
-        self.root.destroy()
-        Main()
-=======
     def delete_note(self):
         root = tk.Tk()
         root.withdraw()
@@ -243,7 +236,6 @@ class Edit(object):
             #delete file
             os.remove(self.now+'/Note-Data/'+self.file)
             call_nain()
->>>>>>> origin/master
             
     def update_b(self, *args):
         value_a = self.dict[self.variable_m.get()]

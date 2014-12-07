@@ -12,6 +12,7 @@ class Start(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
+        self.root.title('Daily Easy')
         to_main_img = tk.PhotoImage(file = "Image/frame.gif")
         label = tk.Label
         label.image = to_main_img
@@ -23,7 +24,7 @@ class Start(object):
         onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
         for i in onlyfiles:
             if i[:10] == str(datetime.datetime.now().date()):
-                tkMessageBox.showinfo(title='Tip', detail=i[13:-27])
+                tkMessageBox.showinfo(title='Today?', detail=i[13:-27])
     def removethis(self):
         self.check_note()
         self.root.destroy()
@@ -33,6 +34,7 @@ class Main(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
+        self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/testbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
@@ -68,12 +70,13 @@ class Main(object):
         for j in onlyfiles:
             if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) == sum_date:
                 listbox.insert('end',j[:-27])
+                listbox.itemconfig(cnt, {'bg':'#99FF00'})
                 cnt += 1
         #insert tip
         tip = open(now+'/tip.txt', 'r')
         self.tip_line = random.choice(tip.read().splitlines())
         listbox.insert('end', ['*'+self.tip_line, '**'+self.tip_line[:35]+'...'][len(self.tip_line)>35])
-        listbox.itemconfig(cnt, {'bg':'#FFFF00'})
+        listbox.itemconfig(cnt, {'bg':'#FFFF99'})
         #create list next time
         for j in onlyfiles:
             if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) > sum_date:
@@ -115,6 +118,7 @@ class New(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
+        self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/testbg2.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
@@ -191,6 +195,7 @@ class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/testbg3.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         self.root.resizable(width='false', height='false')
@@ -295,6 +300,7 @@ class Work(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
+        self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/testbg4.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
@@ -325,9 +331,16 @@ class Work(object):
         onlyfiles.sort()
         date = str(datetime.datetime.now().date())
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
+        cnt = 0
+        #create list today
+        for j in onlyfiles:
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) == sum_date and '#works' in j:
+                listbox.insert('end',j[:-27])
+                listbox.itemconfig(cnt, {'bg':'#99FF00'})
+                cnt += 1
         for j in onlyfiles:
             if '#works' in j:
-                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) > sum_date:
                     listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
         for k in onlyfiles:
@@ -365,6 +378,7 @@ class House(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
+        self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/testbg5.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
@@ -395,9 +409,16 @@ class House(object):
         onlyfiles.sort()
         date = str(datetime.datetime.now().date())
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
+        cnt = 0
+        #create list today
+        for j in onlyfiles:
+            if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) == sum_date and '#house' in j:
+                listbox.insert('end',j[:-27])
+                listbox.itemconfig(cnt, {'bg':'#99FF00'})
+                cnt += 1
         for j in onlyfiles:
             if '#house' in j:
-                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) > sum_date:
                     listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
         for k in onlyfiles:
@@ -434,6 +455,7 @@ class About(object):
         self.root = tk.Tk()
         self.root.geometry('300x150-10+300')
         self.root.resizable(width='false', height='false')
+        self.root.title('About: Daily Easy')
         label = tk.Label(self.root, text="Pachara Chaicharoen 57070075")
         label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="Suttinai Bunyingyonchai 57070134")

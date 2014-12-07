@@ -22,6 +22,12 @@ class Start(object):
 class Main(object):
     def __init__(self):
         self.root = tk.Tk()
+
+        ###bg
+        self.bgimg = tk.PhotoImage(file="testbg.gif")
+        self.labelbg = tk.Label(self.root, image = self.bgimg)
+
+        
         self.root.geometry('300x600-10+50')
         label = tk.Label(self.root, text="main _/|\_")
         label.pack(side="top", fill="x", pady=10)
@@ -58,6 +64,8 @@ class Main(object):
         for k in onlyfiles:
             if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
                 listbox.insert('end',k[:-27])
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def call_work(self):
         self.root.destroy()
         Work()
@@ -71,7 +79,6 @@ class Main(object):
         self.root.destroy()
         New()
     def call_about(self):
-        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
@@ -83,7 +90,10 @@ class Main(object):
 class New(object):
     def __init__(self):
         self.root = tk.Tk()
+        ###bg
         self.root.geometry('300x600-10+50')
+        self.bgimg = tk.PhotoImage(file="testbg2.gif")
+        self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="New =w=")
         label.place(x=130, y=30)
         main_button = tk.Button(self.root,command = self.call_main, text="Go to the main page",relief='groove')
@@ -127,6 +137,8 @@ class New(object):
         self.optionmenu_a.place(x=10, y=390)
         self.optionmenu_b.place(x=70, y=390)
         self.optionmenu_c.place(x=130, y=390)
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def save_note(self):
         date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
@@ -154,6 +166,7 @@ class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+
         self.now = os.getcwd()
         for file in os.listdir(self.now+"/Note-Data"):
             if file.startswith(find_note):
@@ -209,6 +222,7 @@ class Edit(object):
         self.optionmenu_m.place(x=10, y=390)
         self.optionmenu_d.place(x=70, y=390)
         self.optionmenu_y.place(x=130, y=390)
+
     def save_note(self):
         root = tk.Tk()
         root.withdraw()
@@ -253,6 +267,8 @@ class Work(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.bgimg = tk.PhotoImage(file="testbg4.gif")
+        self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Workkkkkk!!!")
         label.pack(side="top", fill="x", pady=10)
         self.edge = tk.Label(self.root, text="========================================")
@@ -282,7 +298,8 @@ class Work(object):
         for j in onlyfiles:
             if '#works' in j:
                 listbox.insert('end',j[:-27])
-
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def call_main(self):
         self.root.destroy()
         Main()
@@ -296,7 +313,6 @@ class Work(object):
         self.root.destroy()
         New()
     def call_about(self):
-        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
@@ -310,6 +326,8 @@ class House(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.bgimg = tk.PhotoImage(file="testbg5.gif")
+        self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House =3=")
         label.pack(side="top", fill="x", pady=10)
         self.edge = tk.Label(self.root, text="========================================")
@@ -339,7 +357,8 @@ class House(object):
         for j in onlyfiles:
             if '#house' in j:
                 listbox.insert('end',j[:-27])
-
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def call_main(self):
         self.root.destroy()
         Main()
@@ -353,7 +372,6 @@ class House(object):
         self.root.destroy()
         New()
     def call_about(self):
-        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
@@ -362,9 +380,18 @@ class House(object):
         print "selection:", selection, ": '%s'" % value
         Edit(value)
         self.root.destroy()
+
+
 class About(object):
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry('300x600-10+50')
+        self.root.geometry('300x150-10+300')
+
+        label = tk.Label(self.root, text="Pachara Chaicharoen 57070075")
+        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self.root, text="Suttinai Bunyingyonchai 57070134")
+        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self.root, text="Language: Python")
+        label.pack(side="top", fill="x", pady=10)
 
 Start()

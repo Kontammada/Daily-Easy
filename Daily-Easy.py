@@ -4,6 +4,7 @@ from os import listdir
 from os.path import isfile, join
 import datetime
 import tkMessageBox
+import tkFont
 
 class Start(object):
     def __init__(self):
@@ -29,25 +30,27 @@ class Main(object):
 
         
         self.root.geometry('300x600-10+50')
-        label = tk.Label(self.root, text="main _/|\_")
-        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
+        label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
         self.edge.place(y = 400)
-        self.workbutton = tk.Button(self.root, text="Work *-*)//", command=self.call_work,relief='groove')
-        self.workbutton.place(x=5, y=425)
-        self.housebutton = tk.Button(self.root, text="House _(:3 JL)_", command=self.call_house,relief='groove')
-        self.housebutton.place(x=80, y=425)
+        self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), state='disabled',relief='groove')
+        self.workbutton.place(x=57, y=430)
+        self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), command=self.call_work,relief='groove')
+        self.workbutton.place(x=117, y=430)
+        self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), command=self.call_house,relief='groove')
+        self.housebutton.place(x=182, y=430)
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
-        self.introbutton.place(x=5, y=465)
-        self.newbutton = tk.Button(self.root, text="New", command=self.call_new,relief='groove')
-        self.newbutton.place(x=5, y=500)
+        self.introbutton.place(x=10, y=565)
         self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
-        self.aboutbutton.place(x=5, y=535)
+        self.aboutbutton.place(x=95, y=565)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=40)
         scrollbar = tk.Scrollbar(frame)
         scrollbar.pack(side='right', fill='y')
-        listbox = tk.Listbox(frame,width=45, height=22)
+        listbox = tk.Listbox(frame,width=33, height=20, font=tkFont.Font(size=11))
         listbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=listbox.yview)
         listbox.bind("<Double-Button-1>", self.OnDouble)
@@ -84,9 +87,12 @@ class Main(object):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        print "selection:", selection, ": '%s'" % value
+        if '=============' in value:
+            return
         Edit(value)
         self.root.destroy()
+    def customFoont(self):
+        self.title_f = tkFont.Font(family="Helvetica", size=25)
 class New(object):
     def __init__(self):
         self.root = tk.Tk()
@@ -96,6 +102,8 @@ class New(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="New =w=")
         label.place(x=130, y=30)
+        label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
+        label.pack(side="top", fill="x", pady=0)
         main_button = tk.Button(self.root,command = self.call_main, text="Go to the main page",relief='groove')
         main_button.place(x=95, y=550)
         self.title = tk.Label(self.root, text='Title')
@@ -173,9 +181,8 @@ class Edit(object):
                 edit_note = open(self.now+"/Note-Data/"+file, "r+")
                 detail = edit_note.read()
                 self.file = str(file)
-
-        label = tk.Label(self.root, text="Edit")
-        label.place(x=130, y=30)
+        label = tk.Label(self.root, text="Edit", font=tkFont.Font(size=25))
+        label.pack(side="top", fill="x", pady=0)
         main_button = tk.Button(self.root, text="Go to the main page", command=self.call_main)
         main_button.place(x=95, y=550)
         self.title = tk.Label(self.root, text='Title')
@@ -271,23 +278,27 @@ class Work(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Workkkkkk!!!")
         label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
+        label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
         self.edge.place(y = 400)
-        self.workbutton = tk.Button(self.root, text="Main", command=self.call_main,relief='groove')
-        self.workbutton.place(x=5, y=425)
-        self.housebutton = tk.Button(self.root, text="House _(:3 JL)_", command=self.call_house,relief='groove')
-        self.housebutton.place(x=80, y=425)
+        self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), command=self.call_main,relief='groove')
+        self.workbutton.place(x=57, y=430)
+        self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), state='disabled',relief='groove')
+        self.workbutton.place(x=117, y=430)
+        self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), command=self.call_house,relief='groove')
+        self.housebutton.place(x=182, y=430)
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
-        self.introbutton.place(x=5, y=465)
-        self.newbutton = tk.Button(self.root, text="New", command=self.call_new,relief='groove')
-        self.newbutton.place(x=5, y=500)
+        self.introbutton.place(x=10, y=565)
         self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
-        self.aboutbutton.place(x=5, y=535)
+        self.aboutbutton.place(x=95, y=565)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=40)
         scrollbar = tk.Scrollbar(frame)
         scrollbar.pack(side='right', fill='y')
-        listbox = tk.Listbox(frame,width=45, height=22)
+        listbox = tk.Listbox(frame,width=33, height=20, font=tkFont.Font(size=11))
         listbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=listbox.yview)
         listbox.bind("<Double-Button-1>", self.OnDouble)
@@ -295,11 +306,20 @@ class Work(object):
         now = os.getcwd()
         onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
         onlyfiles.sort()
+        date = str(datetime.datetime.now().date())
+        sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
             if '#works' in j:
                 listbox.insert('end',j[:-27])
         self.labelbg.pack_propagate(0)
         self.labelbg.pack()
+                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                    listbox.insert('end',j[:-27])
+        listbox.insert('end','===============================================')
+        for k in onlyfiles:
+            if '#works' in k:
+                if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
+                    listbox.insert('end',k[:-27])
     def call_main(self):
         self.root.destroy()
         Main()
@@ -318,7 +338,8 @@ class Work(object):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        print "selection:", selection, ": '%s'" % value
+        if '=============' in value:
+            return
         Edit(value)
         self.root.destroy()
 
@@ -330,23 +351,27 @@ class House(object):
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House =3=")
         label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
+        label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
         self.edge.place(y = 400)
-        self.workbutton = tk.Button(self.root, text="Main", command=self.call_main,relief='groove')
-        self.workbutton.place(x=5, y=425)
-        self.housebutton = tk.Button(self.root, text="Work *-*)//", command=self.call_work,relief='groove')
-        self.housebutton.place(x=80, y=425)
+        self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), command=self.call_main,relief='groove')
+        self.workbutton.place(x=57, y=430)
+        self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), command=self.call_work,relief='groove')
+        self.workbutton.place(x=117, y=430)
+        self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), state='disabled',relief='groove')
+        self.housebutton.place(x=182, y=430)
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
-        self.introbutton.place(x=5, y=465)
-        self.newbutton = tk.Button(self.root, text="New", command=self.call_new,relief='groove')
-        self.newbutton.place(x=5, y=500)
+        self.introbutton.place(x=10, y=565)
         self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
-        self.aboutbutton.place(x=5, y=535)
+        self.aboutbutton.place(x=95, y=565)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=40)
         scrollbar = tk.Scrollbar(frame)
         scrollbar.pack(side='right', fill='y')
-        listbox = tk.Listbox(frame,width=45, height=22)
+        listbox = tk.Listbox(frame,width=33, height=20, font=tkFont.Font(size=11))
         listbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=listbox.yview)
         listbox.bind("<Double-Button-1>", self.OnDouble)
@@ -354,11 +379,20 @@ class House(object):
         now = os.getcwd()
         onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
         onlyfiles.sort()
+        date = str(datetime.datetime.now().date())
+        sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
             if '#house' in j:
                 listbox.insert('end',j[:-27])
         self.labelbg.pack_propagate(0)
         self.labelbg.pack()
+                if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
+                    listbox.insert('end',j[:-27])
+        listbox.insert('end','===============================================')
+        for k in onlyfiles:
+            if '#house' in k:
+                if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
+                    listbox.insert('end',k[:-27])
     def call_main(self):
         self.root.destroy()
         Main()
@@ -377,7 +411,8 @@ class House(object):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        print "selection:", selection, ": '%s'" % value
+        if '=============' in value:
+            return
         Edit(value)
         self.root.destroy()
 

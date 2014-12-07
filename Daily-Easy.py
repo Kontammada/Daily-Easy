@@ -10,6 +10,7 @@ class Start(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         to_main_img = tk.PhotoImage(file = "frame.gif")
         label = tk.Label
         label.image = to_main_img
@@ -23,9 +24,10 @@ class Start(object):
 class Main(object):
     def __init__(self):
         self.root = tk.Tk()
+        self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         self.bgimg = tk.PhotoImage(file="testbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
-        self.root.geometry('300x600-10+50')
         label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
@@ -93,6 +95,7 @@ class New(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         self.bgimg = tk.PhotoImage(file="testbg2.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
@@ -168,6 +171,7 @@ class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         self.now = os.getcwd()
         for file in os.listdir(self.now+"/Note-Data"):
             if file.startswith(find_note):
@@ -266,6 +270,7 @@ class Work(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         self.bgimg = tk.PhotoImage(file="testbg4.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
@@ -336,6 +341,7 @@ class House(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
+        self.root.resizable(width='false', height='false')
         self.bgimg = tk.PhotoImage(file="testbg5.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
@@ -405,6 +411,7 @@ class About(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x150-10+300')
+        self.root.resizable(width='false', height='false')
         label = tk.Label(self.root, text="Pachara Chaicharoen 57070075")
         label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="Suttinai Bunyingyonchai 57070134")

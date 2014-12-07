@@ -23,12 +23,8 @@ class Start(object):
 class Main(object):
     def __init__(self):
         self.root = tk.Tk()
-
-        ###bg
         self.bgimg = tk.PhotoImage(file="testbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
-
-        
         self.root.geometry('300x600-10+50')
         label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
@@ -96,12 +92,9 @@ class Main(object):
 class New(object):
     def __init__(self):
         self.root = tk.Tk()
-        ###bg
         self.root.geometry('300x600-10+50')
         self.bgimg = tk.PhotoImage(file="testbg2.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
-        label = tk.Label(self.root, text="New =w=")
-        label.place(x=130, y=30)
         label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
         main_button = tk.Button(self.root,command = self.call_main, text="Go to the main page",relief='groove')
@@ -170,11 +163,11 @@ class New(object):
     def call_main(self):
         self.root.destroy()
         Main()
+
 class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
-
         self.now = os.getcwd()
         for file in os.listdir(self.now+"/Note-Data"):
             if file.startswith(find_note):
@@ -229,7 +222,6 @@ class Edit(object):
         self.optionmenu_m.place(x=10, y=390)
         self.optionmenu_d.place(x=70, y=390)
         self.optionmenu_y.place(x=130, y=390)
-
     def save_note(self):
         root = tk.Tk()
         root.withdraw()
@@ -276,8 +268,6 @@ class Work(object):
         self.root.geometry('300x600-10+50')
         self.bgimg = tk.PhotoImage(file="testbg4.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
-        label = tk.Label(self.root, text="Workkkkkk!!!")
-        label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
@@ -310,9 +300,6 @@ class Work(object):
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
             if '#works' in j:
-                listbox.insert('end',j[:-27])
-        self.labelbg.pack_propagate(0)
-        self.labelbg.pack()
                 if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
                     listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
@@ -320,6 +307,8 @@ class Work(object):
             if '#works' in k:
                 if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
                     listbox.insert('end',k[:-27])
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def call_main(self):
         self.root.destroy()
         Main()
@@ -349,8 +338,6 @@ class House(object):
         self.root.geometry('300x600-10+50')
         self.bgimg = tk.PhotoImage(file="testbg5.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
-        label = tk.Label(self.root, text="House =3=")
-        label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
         self.edge = tk.Label(self.root, text="========================================")
@@ -383,9 +370,6 @@ class House(object):
         sum_date = int(date[:4])*10000+int(date[5:7])*100+int(date[8:10])
         for j in onlyfiles:
             if '#house' in j:
-                listbox.insert('end',j[:-27])
-        self.labelbg.pack_propagate(0)
-        self.labelbg.pack()
                 if int(j[:4])*10000+int(j[5:7])*100+int(j[8:10]) >= sum_date:
                     listbox.insert('end',j[:-27])
         listbox.insert('end','===============================================')
@@ -393,6 +377,8 @@ class House(object):
             if '#house' in k:
                 if int(k[:4])*10000+int(k[5:7])*100+int(k[8:10]) < sum_date:
                     listbox.insert('end',k[:-27])
+        self.labelbg.pack_propagate(0)
+        self.labelbg.pack()
     def call_main(self):
         self.root.destroy()
         Main()
@@ -415,18 +401,17 @@ class House(object):
             return
         Edit(value)
         self.root.destroy()
-
-
 class About(object):
     def __init__(self):
         self.root = tk.Tk()
         self.root.geometry('300x150-10+300')
-
         label = tk.Label(self.root, text="Pachara Chaicharoen 57070075")
         label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="Suttinai Bunyingyonchai 57070134")
         label.pack(side="top", fill="x", pady=10)
         label = tk.Label(self.root, text="Language: Python")
         label.pack(side="top", fill="x", pady=10)
+
+
 
 Start()

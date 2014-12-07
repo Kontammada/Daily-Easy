@@ -12,7 +12,7 @@ class Start(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        to_main_img = tk.PhotoImage(file = "frame.gif")
+        to_main_img = tk.PhotoImage(file = "Image/frame.gif")
         label = tk.Label
         label.image = to_main_img
         self.button = tk.Button(self.root, image = to_main_img, command=self.removethis)
@@ -26,7 +26,7 @@ class Main(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        self.bgimg = tk.PhotoImage(file="testbg.gif")
+        self.bgimg = tk.PhotoImage(file="Image/testbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="main", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
@@ -63,7 +63,7 @@ class Main(object):
                 listbox.insert('end',j[:-27])
                 cnt += 1
         #insert tip
-        tip = open(now+'/tip.txt', 'r')
+        tip = open(now+'/Tip-Data/tip.txt', 'r')
         tip_line = random.choice(tip.read().splitlines())
         listbox.insert('end', ['*'+tip_line, '**'+tip_line[:35]+'...'][len(tip_line)>35])
         listbox.itemconfig(cnt, {'bg':'#FFFF00'})
@@ -105,7 +105,7 @@ class New(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        self.bgimg = tk.PhotoImage(file="testbg2.gif")
+        self.bgimg = tk.PhotoImage(file="Image/testbg2.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="New", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
@@ -123,12 +123,12 @@ class New(object):
         self.text.place(x=10, y=122)
         #work or house radiobutton
         self.tag_var = tk.StringVar()
-        work = tk.Radiobutton(self.root, text='Work', variable=self.tag_var, value='works')
+        work = tk.Radiobutton(self.root, text='Works', variable=self.tag_var, value='works')
         house = tk.Radiobutton(self.root, text='House', variable=self.tag_var, value='house')
         work.place(x=160,y=455)
         house.place(x=160,y=473)
         #save button
-        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), command=self.save_note)
+        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), bg='#7CFC00', command=self.save_note,relief='groove')
         self.button.place(x=235, y=460)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
@@ -159,13 +159,13 @@ class New(object):
         tag = [str(self.tag_var.get()),'works'][str(self.tag_var.get())=='']
         name = alert+" _ "+str(title)+' __ '+date+'   #'+tag
         data = self.text.get('1.0', 'end-1c')
+        if title == '':
+            return
         new_file = open("Note-Data/"+name+".txt", "w+")
         alert = str(self.variable_c.get())+'-'+str(self.variable_a.get())+'-'+str(self.variable_b.get())
         new_file.write(data)
         self.text.delete('1.0', 'end')
         self.text_title.delete('1.0', 'end')
-        self.success = tk.Label(self.root, text='...File saved...')
-        self.success.place(x=117, y=440)
         self.call_main()
     def update_b(self, *args):
         value_a = self.dict[self.variable_a.get()]
@@ -180,7 +180,7 @@ class Edit(object):
     def __init__(self, find_note):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
-        self.bgimg = tk.PhotoImage(file="testbg3.gif")
+        self.bgimg = tk.PhotoImage(file="Image/testbg3.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         self.root.resizable(width='false', height='false')
         self.now = os.getcwd()
@@ -191,7 +191,7 @@ class Edit(object):
                 self.file = str(file)
         label = tk.Label(self.root, text="Edit", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
-        main_button = tk.Button(self.root, text="Go to the main page", command=self.call_main)
+        main_button = tk.Button(self.root, text="Go to the main page", command=self.call_main,relief='groove')
         main_button.place(x=95, y=550)
         self.title = tk.Label(self.root, text='Title', font=tkFont.Font(size=12))
         self.title.place(x=10, y=50)
@@ -207,15 +207,15 @@ class Edit(object):
         self.text.insert('1.0', detail)
         #work or house radiobutton
         self.tag_var = tk.StringVar()
-        work = tk.Radiobutton(self.root, text='Work', variable=self.tag_var, value='works')
+        work = tk.Radiobutton(self.root, text='Works', variable=self.tag_var, value='works')
         house = tk.Radiobutton(self.root, text='House', variable=self.tag_var, value='house')
         work.place(x=160,y=455)
         house.place(x=160,y=473)
         #save button
-        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), command=self.save_note)
+        self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), bg='#7CFC00', command=self.save_note,relief='groove')
         self.button.place(x=235, y=460)
         #delete button
-        self.delete_button = tk.Button(self.root, text='delete',command=self.delete_note)
+        self.delete_button = tk.Button(self.root, text='delete', bg='#FF0000',command=self.delete_note,relief='groove')
         self.delete_button.place(x=10, y=412)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
@@ -257,8 +257,6 @@ class Edit(object):
             new_file.write(data)
             self.text.delete('1.0', 'end')
             self.text_title.delete('1.0', 'end')
-            self.success = tk.Label(self.root, text='...File saved...')
-            self.success.place(x=117, y=440)
             self.call_main()
     def call_main(self):
         self.root.destroy()
@@ -286,7 +284,7 @@ class Work(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        self.bgimg = tk.PhotoImage(file="testbg4.gif")
+        self.bgimg = tk.PhotoImage(file="Image/testbg4.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="Work", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
@@ -296,7 +294,7 @@ class Work(object):
         self.workbutton.place(x=117, y=430)
         self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), command=self.call_house,relief='groove')
         self.housebutton.place(x=182, y=430)
-        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
         self.introbutton.place(x=10, y=565)
@@ -356,7 +354,7 @@ class House(object):
         self.root = tk.Tk()
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        self.bgimg = tk.PhotoImage(file="testbg5.gif")
+        self.bgimg = tk.PhotoImage(file="Image/testbg5.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         label = tk.Label(self.root, text="House", font=tkFont.Font(size=25))
         label.pack(side="top", fill="x", pady=0)
@@ -366,7 +364,7 @@ class House(object):
         self.workbutton.place(x=117, y=430)
         self.housebutton = tk.Button(self.root, text="House", font=tkFont.Font(size=13), state='disabled',relief='groove')
         self.housebutton.place(x=182, y=430)
-        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), command=self.call_new,relief='groove')
+        self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=245, y=558)
         self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
         self.introbutton.place(x=10, y=565)

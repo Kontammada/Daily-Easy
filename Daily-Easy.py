@@ -117,7 +117,7 @@ class New(object):
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
         self.root.title('Daily Easy')
-        self.bgimg = tk.PhotoImage(file="Image/frame.gif")
+        self.bgimg = tk.PhotoImage(file="Image/newbg.gif")
         self.labelbg = tk.Label(self.root, image = self.bgimg)
         main_button = tk.Button(self.root,command = self.call_main, text="Go to the main page",relief='groove')
         main_button.place(x=98, y=552)
@@ -135,7 +135,7 @@ class New(object):
         house.place(x=165,y=473)
         #save button
         self.button = tk.Button(self.root, text="Save", font=tkFont.Font(size=13), bg='#7CFC00', command=self.save_note,relief='groove')
-        self.button.place(x=237, y=460)
+        self.button.place(x=240, y=460)
         #date optionmenu
         self.list_m = ['1','2','3','4','5','6','7','8','9','10','11','12']
         self.dict = {'1':range(1,32), '2':range(1,30), '3':range(1,32),
@@ -154,9 +154,9 @@ class New(object):
         self.variable_m.set(self.date[5:7])
         self.variable_d.set(self.date[8:10])
         self.variable_y.set(self.date[:4])
-        self.optionmenu_m.place(x=100, y=410)
-        self.optionmenu_d.place(x=160, y=410)
-        self.optionmenu_y.place(x=220, y=410)
+        self.optionmenu_m.place(x=103, y=409)
+        self.optionmenu_d.place(x=163, y=409)
+        self.optionmenu_y.place(x=223, y=409)
         self.labelbg.pack_propagate(0)
         self.labelbg.pack()
     def save_note(self):
@@ -236,9 +236,9 @@ class Edit(object):
         self.variable_m.set(int(self.file[5:7]))
         self.variable_d.set(int(self.file[8:10]))
         self.variable_y.set(int(self.file[:4]))
-        self.optionmenu_m.place(x=100, y=410)
-        self.optionmenu_d.place(x=160, y=410)
-        self.optionmenu_y.place(x=220, y=410)
+        self.optionmenu_m.place(x=103, y=409)
+        self.optionmenu_d.place(x=163, y=409)
+        self.optionmenu_y.place(x=223, y=409)
         self.labelbg.pack_propagate(0)
         self.labelbg.pack()
     def save_note(self):

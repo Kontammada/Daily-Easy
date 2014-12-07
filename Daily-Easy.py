@@ -63,9 +63,9 @@ class Main(object):
                 listbox.insert('end',j[:-27])
                 cnt += 1
         #insert tip
-        tip = open(now+'/Tip-Data/tip.txt', 'r')
-        tip_line = random.choice(tip.read().splitlines())
-        listbox.insert('end', ['*'+tip_line, '**'+tip_line[:35]+'...'][len(tip_line)>35])
+        tip = open(now+'/tip.txt', 'r')
+        self.tip_line = random.choice(tip.read().splitlines())
+        listbox.insert('end', ['*'+self.tip_line, '**'+self.tip_line[:35]+'...'][len(self.tip_line)>35])
         listbox.itemconfig(cnt, {'bg':'#FFFF00'})
         #create list next time
         for j in onlyfiles:
@@ -97,6 +97,9 @@ class Main(object):
         selection=widget.curselection()
         value = widget.get(selection[0])
         if '=============' in value:
+            return
+        if '**' in value:
+            tkMessageBox.showinfo(title='Tip', detail=self.tip_line)
             return
         self.root.destroy()
         Edit(value)

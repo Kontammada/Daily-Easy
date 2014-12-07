@@ -18,7 +18,14 @@ class Start(object):
         self.button = tk.Button(self.root, image = to_main_img, command=self.removethis)
         self.button.pack()
         self.root.mainloop()
+    def check_note(self):
+        now = os.getcwd()
+        onlyfiles = [ f for f in listdir(now+'''/Note-Data''') if isfile(join(now+'''/Note-Data''',f)) ]
+        for i in onlyfiles:
+            if i[:10] == str(datetime.datetime.now().date()):
+                tkMessageBox.showinfo(title='Tip', detail=i[13:-27])
     def removethis(self):
+        self.check_note()
         self.root.destroy()
         Main()
 class Main(object):
@@ -140,42 +147,43 @@ class New(object):
                      '7':range(1,32), '8':range(1,32), '9':range(1,31),
                      '10':range(1,32), '11':range(1,31), '12':range(1,32)}
         self.year = range(2014, 2031)
-        self.variable_a = tk.StringVar(self.root)
-        self.variable_b = tk.StringVar(self.root)
-        self.variable_c = tk.StringVar(self.root)
-        self.variable_a.trace('w', self.update_b)
-        self.optionmenu_a = tk.OptionMenu(self.root, self.variable_a, *self.list_m)
-        self.optionmenu_b = tk.OptionMenu(self.root, self.variable_b, *self.dict['1'])
-        self.optionmenu_c = tk.OptionMenu(self.root, self.variable_c, *self.year)
-        self.variable_a.set(1)
-        self.variable_b.set(1)
-        self.variable_c.set(2014)
-        self.optionmenu_a.place(x=100, y=410)
-        self.optionmenu_b.place(x=160, y=410)
-        self.optionmenu_c.place(x=220, y=410)
+        self.variable_m = tk.StringVar(self.root)
+        self.variable_d = tk.StringVar(self.root)
+        self.variable_y = tk.StringVar(self.root)
+        self.variable_m.trace('w', self.update_b)
+        self.optionmenu_m = tk.OptionMenu(self.root, self.variable_m, *self.list_m)
+        self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *self.dict['1'])
+        self.optionmenu_y = tk.OptionMenu(self.root, self.variable_y, *self.year)
+        self.date = str(datetime.datetime.now().date())
+        self.variable_m.set(self.date[5:7])
+        self.variable_d.set(self.date[8:10])
+        self.variable_y.set(self.date[:4])
+        self.optionmenu_m.place(x=100, y=410)
+        self.optionmenu_d.place(x=160, y=410)
+        self.optionmenu_y.place(x=220, y=410)
         self.labelbg.pack_propagate(0)
         self.labelbg.pack()
     def save_note(self):
-        date = str(datetime.datetime.now().date())
+        self.date = str(datetime.datetime.now().date())
         title = self.text_title.get('1.0', 'end-1c')
-        alert = str(self.variable_c.get())+'-'+str(self.variable_a.get()).zfill(2)+'-'+str(self.variable_b.get()).zfill(2)
+        alert = str(self.variable_y.get())+'-'+str(self.variable_m.get()).zfill(2)+'-'+str(self.variable_d.get()).zfill(2)
         tag = [str(self.tag_var.get()),'works'][str(self.tag_var.get())=='']
-        name = alert+" _ "+str(title)+' __ '+date+'   #'+tag
+        name = alert+" _ "+str(title)+' __ '+self.date+'   #'+tag
         data = self.text.get('1.0', 'end-1c')
         if title == '':
             return
         new_file = open("Note-Data/"+name+".txt", "w+")
-        alert = str(self.variable_c.get())+'-'+str(self.variable_a.get())+'-'+str(self.variable_b.get())
+        alert = str(self.variable_y.get())+'-'+str(self.variable_m.get())+'-'+str(self.variable_d.get())
         new_file.write(data)
         self.text.delete('1.0', 'end')
         self.text_title.delete('1.0', 'end')
         self.call_main()
     def update_b(self, *args):
-        value_a = self.dict[self.variable_a.get()]
-        self.optionmenu_b.pack_forget()
-        self.optionmenu_b = tk.OptionMenu(self.root, self.variable_b, *value_a)
-        self.variable_b.set(1)
-        self.optionmenu_b.place(x=160, y=410)
+        value_a = self.dict[self.variable_m.get()]
+        self.optionmenu_d.pack_forget()
+        self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)
+        self.variable_d.set(1)
+        self.optionmenu_d.place(x=160, y=410)
     def call_main(self):
         self.root.destroy()
         Main()

@@ -45,9 +45,9 @@ class Main(object):
         self.housebutton.place(x=185, y=439)
         self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=250, y=558)
-        self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
+        self.introbutton = tk.Button(self.root, text="Help  About", command=self.call_about,relief='groove')
         self.introbutton.place(x=10, y=563)
-        self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
+        self.aboutbutton = tk.Button(self.root, text=" Intro ", command=self.call_intro,relief='groove')
         self.aboutbutton.place(x=95, y=563)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=63)
@@ -99,12 +99,13 @@ class Main(object):
         self.root.destroy()
         New()
     def call_about(self):
+        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        if '=============' in value:
+        if '=============' in value and '_' not in value:
             return
         if '**' in value:
             tkMessageBox.showinfo(title='Tip', detail=self.tip_line)
@@ -167,6 +168,10 @@ class New(object):
         name = alert+" _ "+str(title)+' __ '+self.date+'   #'+tag
         data = self.text.get('1.0', 'end-1c')
         if title == '':
+            tkMessageBox.showinfo(title='_(:3 JL)_', detail="Please write title's name")
+            return
+        elif (('\\' in title or '/' in title) or (':' in title or '?' in title)) or (('"' in title or '<' in title) or ('>' in title or '|' in title)) or '*' in title:
+            tkMessageBox.showinfo(title='_(:3 JL)_', detail="Please not use \\ / : ? "" < > | * in title")
             return
         new_file = open("Note-Data/"+name+".txt", "w+")
         alert = str(self.variable_y.get())+'-'+str(self.variable_m.get())+'-'+str(self.variable_d.get())
@@ -297,9 +302,9 @@ class Work(object):
         self.housebutton.place(x=185, y=439)
         self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=250, y=558)
-        self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
+        self.introbutton = tk.Button(self.root, text="Help  About", command=self.call_about,relief='groove')
         self.introbutton.place(x=10, y=563)
-        self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
+        self.aboutbutton = tk.Button(self.root, text=" Intro ", command=self.call_intro,relief='groove')
         self.aboutbutton.place(x=95, y=563)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=63)
@@ -346,12 +351,13 @@ class Work(object):
         self.root.destroy()
         New()
     def call_about(self):
+        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        if '=============' in value:
+        if '=============' in value and '_' not in value:
             return
         self.root.destroy()
         Edit(value)
@@ -373,9 +379,9 @@ class House(object):
         self.housebutton.place(x=185, y=439)
         self.newbutton = tk.Button(self.root, text="New", font=tkFont.Font(size=13), bg='#7CFC00', command=self.call_new,relief='groove')
         self.newbutton.place(x=250, y=558)
-        self.introbutton = tk.Button(self.root, text="Back to Intro", command=self.call_intro,relief='groove')
+        self.introbutton = tk.Button(self.root, text="Help  About", command=self.call_about,relief='groove')
         self.introbutton.place(x=10, y=563)
-        self.aboutbutton = tk.Button(self.root, text="About", command=self.call_about,relief='groove')
+        self.aboutbutton = tk.Button(self.root, text=" Intro ", command=self.call_intro,relief='groove')
         self.aboutbutton.place(x=95, y=563)
         frame = tk.Frame(self.root)
         frame.place(x=7,y=63)
@@ -422,12 +428,13 @@ class House(object):
         self.root.destroy()
         New()
     def call_about(self):
+        self.root.destroy()
         About()
     def OnDouble(self, event):
         widget = event.widget
         selection=widget.curselection()
         value = widget.get(selection[0])
-        if '=============' in value:
+        if '=============' in value and '_' not in value:
             return
         self.root.destroy()
         Edit(value)
@@ -435,16 +442,17 @@ class House(object):
 class About(object):
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry('300x150-10+300')
+        self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
-        self.root.title('About: Daily Easy')
-        label = tk.Label(self.root, text="Pachara Chaicharoen 57070075")
-        label.pack(side="top", fill="x", pady=10)
-        label = tk.Label(self.root, text="Suttinai Bunyingyonchai 57070134")
-        label.pack(side="top", fill="x", pady=10)
-        label = tk.Label(self.root, text="Language: Python")
-        label.pack(side="top", fill="x", pady=10)
-
+        self.root.title('Daily Easy')
+        to_main_img = tk.PhotoImage(file = "Image/Help.gif")
+        label = tk.Label
+        label.image = to_main_img
+        self.button = tk.Button(self.root, image = to_main_img, command=self.removethis)
+        self.button.pack()
+    def removethis(self):
+        self.root.destroy()
+        Main()
 
 
 Start()

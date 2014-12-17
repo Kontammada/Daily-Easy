@@ -73,7 +73,7 @@ class Main(object):
         #insert tip
         tip = open(now+'/tip.txt', 'r')
         self.tip_line = random.choice(tip.read().splitlines())
-        listbox.insert('end', ['*'+self.tip_line, '**'+self.tip_line[:35]+'...'][len(self.tip_line)>35])
+        listbox.insert('end', ['*'+self.tip_line, 'Tip: '+self.tip_line[:33]+'...'][len(self.tip_line)>35])
         listbox.itemconfig(cnt, {'bg':'#FFFF99'})
         #create list next time
         for j in onlyfiles:
@@ -107,7 +107,7 @@ class Main(object):
         value = widget.get(selection[0])
         if '=============' in value and '_' not in value:
             return
-        if '**' in value:
+        if 'Tip: ' in value and '_' not in value:
             tkMessageBox.showinfo(title='Tip', detail=self.tip_line)
             return
         self.root.destroy()

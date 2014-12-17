@@ -13,7 +13,7 @@ class Start(object):
         self.root.geometry('300x600-10+50')
         self.root.resizable(width='false', height='false')
         self.root.title('Daily Easy')
-        to_main_img = tk.PhotoImage(file = "Image/frame.gif")
+        to_main_img = tk.PhotoImage(file = "Image/Intro.gif")
         label = tk.Label
         label.image = to_main_img
         self.button = tk.Button(self.root, image = to_main_img, command=self.removethis)

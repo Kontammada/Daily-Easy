@@ -180,6 +180,7 @@ class New(object):
         self.text_title.delete('1.0', 'end')
         self.call_main()
     def update_b(self, *args):
+        self.optionmenu_d.destroy()
         value_a = self.dict[self.variable_m.get()]
         self.optionmenu_d.pack_forget()
         self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)
@@ -276,6 +277,7 @@ class Edit(object):
             os.remove(self.now+'/Note-Data/'+self.file)
             self.call_main()
     def update_b(self, *args):
+        self.optionmenu_d.destroy()
         value_a = self.dict[self.variable_m.get()]
         self.optionmenu_d.pack_forget()
         self.optionmenu_d = tk.OptionMenu(self.root, self.variable_d, *value_a)

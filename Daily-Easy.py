@@ -46,8 +46,8 @@ class Main(object):
         self.root.resizable(width='false', height='false')
         self.root.title('Daily Easy')
         self.bgimg = tk.PhotoImage(file="Image/mainbg.gif")
-        #button
         self.labelbg = tk.Label(self.root, image = self.bgimg)
+        #button
         self.workbutton = tk.Button(self.root, text="Main", font=tkFont.Font(size=13), state='disabled',relief='groove')
         self.workbutton.place(x=57, y=439)
         self.workbutton = tk.Button(self.root, text="Work", font=tkFont.Font(size=13), command=self.call_work,relief='groove')
@@ -392,7 +392,6 @@ class New(object):
             tkMessageBox.showinfo(title='_(:3 JL)_', detail="Please not use \\ / : ? "" < > | * in title")
             return
         new_file = open("Note-Data/"+name+".txt", "w+")
-        alert = str(self.variable_y.get())+'-'+str(self.variable_m.get())+'-'+str(self.variable_d.get())
         new_file.write(data)
         self.text.delete('1.0', 'end')
         self.text_title.delete('1.0', 'end')
@@ -478,8 +477,6 @@ class Edit(object):
         self.labelbg.pack()
     def save_note(self):
         '''save note'''
-        root = tk.Tk()
-        root.withdraw()
         if tkMessageBox.askyesno(title='Really?', detail='Do you want to save?'):
             #delete old file
             os.remove(self.now+'/Note-Data/'+self.file)
@@ -500,8 +497,6 @@ class Edit(object):
 
     def delete_note(self):
         '''delete note'''
-        root = tk.Tk()
-        root.withdraw()
         if tkMessageBox.askyesno(title='Really?', detail='Do you want to delete?'):
             #delete file
             os.remove(self.now+'/Note-Data/'+self.file)
